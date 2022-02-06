@@ -4,6 +4,7 @@ namespace App\Http\Middleware;
 
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class IsOwnerCheck
 {
@@ -16,6 +17,7 @@ class IsOwnerCheck
      */
     public function handle(Request $request, Closure $next)
     {
+        
         if(auth()->user()->is_owner==1){
             // do owner actions AKA go to user-dashboard page!
             return $next($request);

@@ -21,6 +21,8 @@ Route::get('/', function () {
 
 Auth::routes();
 
+Auth::routes(['register' => false]);
+
 // employee home
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
@@ -28,4 +30,6 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/owner/home', [App\Http\Controllers\HomeController::class, 'ownerIndex'])->name('owner.home')->middleware('is_owner_check');
 
 // Owner: Add User
-Route::get('/register', [App\Http\Controllers\HomeController::class, 'registerIndex'])->name('register')->middleware('is_owner_check');
+Route::get('/employee/add', [App\Http\Controllers\EmployeeController::class, 'addEmployee'])->name('employee.add')->middleware('is_owner_check');
+// Owner: Save User
+Route::post('/employee/add', [App\Http\Controllers\EmployeeController::class, 'saveEmployee'])->name('employee.save')->middleware('is_owner_check');

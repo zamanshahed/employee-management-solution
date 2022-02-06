@@ -36,11 +36,6 @@ class HomeController extends Controller
     {
         $users = DB::table('users')->get();
         return view('admin.admindash', compact('users'));
-    }
-
+    }    
     
-    public function registerIndex()
-    {
-        return view('auth.register');
-    }
 }

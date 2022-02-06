@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class HomeController extends Controller
 {
@@ -23,11 +24,23 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(auth()->user()->is_owner==1){
+            return redirect()->route('owner.home');
+        }else{
+            return view('home');
+        }
+        
     }
 
     public function ownerIndex()
     {
-        return view('admin.admindash');
+        $users = DB::table('users')->get();
+        return view('admin.admindash', compact('users'));
+    }
+
+    
+    public function registerIndex()
+    {
+        return view('auth.register');
     }
 }

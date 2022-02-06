@@ -22,7 +22,10 @@ Route::get('/', function () {
 Auth::routes();
 
 // employee home
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home')->middleware('is_auth_check');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 // Owner home
-Route::get('/owner/home', [App\Http\Controllers\HomeController::class, 'ownerIndex'])->name('owner.home')->middleware('is_auth_check');
+Route::get('/owner/home', [App\Http\Controllers\HomeController::class, 'ownerIndex'])->name('owner.home')->middleware('is_owner_check');
+
+// Owner: Add User
+Route::get('/register', [App\Http\Controllers\HomeController::class, 'registerIndex'])->name('register')->middleware('is_owner_check');

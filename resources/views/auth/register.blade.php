@@ -5,7 +5,12 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Register') }}</div>
+                <div class="card-header">{{ __('Add New Employee') }}</div>
+
+                @if (Auth::user()->is_owner==1)
+                    
+                
+                {{-- REGISTER STARTS --}}
 
                 <div class="card-body">
                     <form method="POST" action="{{ route('register') }}">
@@ -64,12 +69,17 @@
                         <div class="row mb-0">
                             <div class="col-md-6 offset-md-4">
                                 <button type="submit" class="btn btn-primary">
-                                    {{ __('Register') }}
+                                    {{ __('Add Employee') }}
                                 </button>
                             </div>
                         </div>
                     </form>
                 </div>
+                {{-- REGISTER STARTS --}}
+                @endif
+
+
+
             </div>
         </div>
     </div>

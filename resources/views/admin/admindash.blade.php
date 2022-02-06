@@ -41,6 +41,7 @@
                                         <th scope="col">SL No.</th>
                                         <th scope="col">Name</th>
                                         <th scope="col">Email</th>
+                                        <th scope="col">Status</th>
                                         <th scope="col">Created At</th>
                                     </tr>
                                 </thead>
@@ -51,6 +52,13 @@
                                             <th scope="row">{{ $i++ }}</th>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
+                                            <td>
+                                                @if ($user->is_owner==1)
+                                                    Owner
+                                                @else
+                                                    Employee
+                                                @endif
+                                            </td>
                                             <td>{{ Carbon\Carbon::parse($user->created_at)->diffForHumans() }}
                                             </td>
                                             <!-- Carbon\Carbon::parse only for query builder method  -->

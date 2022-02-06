@@ -10,6 +10,8 @@
 
                     <div class="card-header">
                         {{ __('Add New Employee') }}
+                        
+                        <a href="{{route('home')}}">Home</a>
 
                         @if (session('message'))
                             <h2 style="color: red; font-weight: bolder">

@@ -15,6 +15,8 @@
                     @endif
 
                     {{ __('Check in / out!') }}
+
+                    
                 </div>
             </div>
         </div>

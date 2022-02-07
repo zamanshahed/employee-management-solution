@@ -27,7 +27,7 @@ class HomeController extends Controller
         if(auth()->user()->is_owner==1){
             return redirect()->route('owner.home');
         }else{
-            return view('home');
+            return redirect()->route('employee.attendace');
         }
         
     }

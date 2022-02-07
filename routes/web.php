@@ -33,3 +33,6 @@ Route::get('/owner/home', [App\Http\Controllers\HomeController::class, 'ownerInd
 Route::get('/employee/add', [App\Http\Controllers\EmployeeController::class, 'addEmployee'])->name('employee.add')->middleware('is_owner_check');
 // Owner: Save User
 Route::post('/employee/add', [App\Http\Controllers\EmployeeController::class, 'saveEmployee'])->name('employee.save')->middleware('is_owner_check');
+
+// Employee attendance page
+Route::get('/employee/attendance', [App\Http\Controllers\AttendanceController::class, 'index'])->name('employee.attendace');

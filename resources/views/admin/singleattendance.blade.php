@@ -6,7 +6,7 @@
             <div class="col-md-8">
                 <div class="card">
                     <div class="card-header">
-                        {{ __('Owner Dashboard') }}
+                        {{ __('Attendance Report of: ' . $user_name) }}
                     </div>
 
                     <div class="card-body">
@@ -43,6 +43,7 @@
 
 
                     </div>
+                    
 
 
 
@@ -54,7 +55,7 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">SL No.</th>
-                                        <th scope="col">User Name</th>
+                                        <th scope="col">Date</th>
                                         <th scope="col">Check in</th>
                                         <th scope="col">Check Out</th>
                                         <th scope="col">Office Hour</th>
@@ -62,14 +63,10 @@
                                 </thead>
                                 <tbody>
                                     @php($i = 1)
-                                    @foreach ($items as $item)
+                                    @foreach ($user_data as $item)
                                         <tr>
                                             <th scope="row">{{ $i++ }}</th>
-                                            <td>
-                                                <a href="{{ url('owner/single/attendance/' . $item->user_id) }}">
-                                                    {{ $item->user_finder->name }}
-                                                </a>
-                                            </td>
+                                            <td>{{ $item->date }}</td>
                                             <td>{{ $item->check_in }}</td>
                                             <td>
                                                 @if ($item->check_out)
@@ -84,7 +81,6 @@
                                             <td>
                                                 {{ $item->spent_hours }}
                                             </td>
-                                            <!-- Carbon\Carbon::parse only for query builder method  -->
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -93,9 +89,7 @@
                     </div>
 
                     {{-- Table ends --}}
+                    {{ $user_data->links() }}
 
-                </div>
-            </div>
-        </div>
     </div>
 @endsection

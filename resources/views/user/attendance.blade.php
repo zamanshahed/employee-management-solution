@@ -48,12 +48,12 @@
                         <br>
 
                         <br>
-                        __status:
+                        {{-- __status:
                         {{ $created }}
 
                         <br>
                         __result:
-                        {{ $result }}
+                        {{ $result }} --}}
 
                     </div>
                 </div>

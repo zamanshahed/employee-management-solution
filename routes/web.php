@@ -43,3 +43,7 @@ Route::get('/employee/attendance', [App\Http\Controllers\AttendanceController::c
 Route::post('/employee/attendance/check_in', [App\Http\Controllers\AttendanceController::class, 'checkIn'])->name('employee.check.in');
 // Employee Check out
 Route::post('/employee/attendance/check_out', [App\Http\Controllers\AttendanceController::class, 'checkOut'])->name('employee.check.out');
+
+
+// owner: single employee attendence list
+Route::get('/owner/single/attendance/{id}', [App\Http\Controllers\AttendanceController::class, 'singleAttendance'])->name('owner.single.attendace')->middleware('is_owner_check');

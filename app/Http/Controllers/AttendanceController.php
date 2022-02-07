@@ -88,4 +88,10 @@ class AttendanceController extends Controller
 
         return redirect()->route('home');
     }
+
+    public function singleAttendance($id){
+        $user_data = AttendanceTracker::where('user_id', $id)->paginate(4);
+        $user_name = User::find($id)->name;
+        return view('admin.singleattendance', compact('user_data', 'user_name'));
+    }
 }

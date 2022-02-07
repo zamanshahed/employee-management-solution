@@ -15,4 +15,11 @@ class AttendanceTracker extends Model
         'check_out',
         'spent_hours',
     ];
+
+
+    public function user_finder(){
+        return $this->hasOne(User::class, 'id', 'user_id');
+    }
+
+    
 }

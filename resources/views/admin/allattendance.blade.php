@@ -18,7 +18,7 @@
 
 
                         <form action="{{ route('employee.add') }}" method="GET">
-                            
+
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
@@ -30,17 +30,17 @@
 
                         <br>
 
-                        <form action="{{ route('owner.attendace') }}" method="GET">                            
+                        <form action="{{ route('home') }}" method="GET">
                             <div class="row mb-0">
                                 <div class="col-md-6 offset-md-4">
                                     <button type="submit" class="btn btn-primary">
-                                        {{ __('All Attendance') }}
+                                        {{ __('Back to Home') }}
                                     </button>
                                 </div>
                             </div>
                         </form>
 
-                        
+
 
                     </div>
 
@@ -54,27 +54,38 @@
                                 <thead>
                                     <tr>
                                         <th scope="col">SL No.</th>
-                                        <th scope="col">Name</th>
-                                        <th scope="col">Email</th>
-                                        <th scope="col">Status</th>
-                                        <th scope="col">Created At</th>
+                                        <th scope="col">User Name</th>
+                                        <th scope="col">Check in</th>
+                                        <th scope="col">Check Out</th>
+                                        <th scope="col">Office Hour</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @php($i = 1)
-                                    @foreach ($users as $user)
+                                    @foreach ($items as $item)
                                         <tr>
                                             <th scope="row">{{ $i++ }}</th>
-                                            <td>{{ $user->name }}</td>
-                                            <td>{{ $user->email }}</td>
                                             <td>
-                                                @if ($user->is_owner==1)
-                                                    Owner
+                                                {{
+                                                    $item->user_finder->name,
+                                                    
+                                                }}
+                                                
+                                            
+                                            </td>
+                                            <td>{{ $item->check_in }}</td>
+                                            <td>
+                                                @if ($item->check_out)
+                                                    {{ $item->check_out }}
                                                 @else
-                                                    Employee
+                                                
+                                                <div style="color: red; font-weight: bolder">
+                                                    Not checked out yet!                                                    
+                                                </div>
                                                 @endif
                                             </td>
-                                            <td>{{ Carbon\Carbon::parse($user->created_at)->diffForHumans() }}
+                                            <td>
+                                                {{ $item->spent_hours }}
                                             </td>
                                             <!-- Carbon\Carbon::parse only for query builder method  -->
                                         </tr>

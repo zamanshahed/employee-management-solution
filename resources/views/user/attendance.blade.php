@@ -15,29 +15,38 @@
                         @endif
                         {{ $date }}
 
-                        <form action="{{ route('employee.check.in') }}" method="POST">
-                            @csrf
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-success">
-                                        {{ __('Check In') }}
-                                    </button>
+                        @if ($created !== null)
+                            {{-- checked in already!! --}}
+                            <form action="{{ route('employee.check.out') }}" method="POST">
+                                @csrf
+                                <div class="row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-primary">
+                                            {{ __('Check Out') }}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
-                        <br>
-                        
-                        <br>
-                        <form action="{{ route('employee.check.out') }}" method="POST">
-                            @csrf
-                            <div class="row mb-0">
-                                <div class="col-md-6 offset-md-4">
-                                    <button type="submit" class="btn btn-primary">
-                                        {{ __('Check Out') }}
-                                    </button>
+                            </form>
+
+                        @else
+                            {{-- not checked in yet!! --}}
+                            <form action="{{ route('employee.check.in') }}" method="POST">
+                                @csrf
+                                <div class="row mb-0">
+                                    <div class="col-md-6 offset-md-4">
+                                        <button type="submit" class="btn btn-success">
+                                            {{ __('Check In') }}
+                                        </button>
+                                    </div>
                                 </div>
-                            </div>
-                        </form>
+                            </form>
+
+                        @endif
+
+                        <br>
+
+                        <br>
+
                         <br>
                         __status:
                         {{ $created }}

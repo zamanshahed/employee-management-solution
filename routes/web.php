@@ -35,6 +35,8 @@ Route::get('/employee/add', [App\Http\Controllers\EmployeeController::class, 'ad
 Route::post('/employee/add', [App\Http\Controllers\EmployeeController::class, 'saveEmployee'])->name('employee.save')->middleware('is_owner_check');
 
 
+// Owner attendance page
+Route::get('/owner/attendance', [App\Http\Controllers\AttendanceController::class, 'allAttendance'])->name('owner.attendace');
 // Employee attendance page
 Route::get('/employee/attendance', [App\Http\Controllers\AttendanceController::class, 'index'])->name('employee.attendace');
 // Employee Check in

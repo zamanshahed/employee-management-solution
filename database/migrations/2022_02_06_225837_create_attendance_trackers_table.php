@@ -16,9 +16,9 @@ class CreateAttendanceTrackersTable extends Migration
         Schema::create('attendance_trackers', function (Blueprint $table) {
             $table->id();
             $table->integer('user_id');
-            $table->date('date')->nullable();
-            $table->dateTime('check_in')->nullable();
-            $table->dateTime('check_out')->nullable();
+            $table->string('date')->nullable();
+            $table->string('check_in')->nullable();
+            $table->string('check_out')->nullable();
             $table->string('spent_hours')->nullable();
             $table->timestamps();
         });

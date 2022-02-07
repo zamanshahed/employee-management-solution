@@ -42,4 +42,10 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+    public function tracker_finder(){
+        return $this->hasOne(AttendanceTracker::class, 'created_at', 'updated_at');
+    }
+
 }

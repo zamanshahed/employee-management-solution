@@ -15,15 +15,8 @@ class AttendanceController extends Controller
 {
     public function index()
     {
-        $created = 0;
-        if (AttendanceTracker::find(Auth::user()->id)) {
-            $created = 1;
-        }
+        $created = Auth::user()->is_owner;
 
-        // $actual_start_at = Carbon::parse('2017-05-01 13:00:00');
-        // $actual_end_at = Carbon::parse('2017-05-01 17:00:00');
-        // $result = $actual_end_at->diffInSeconds($actual_start_at, true);
-        // $result = CarbonInterval::seconds($result)->cascade();
 
         $result  = Carbon::now()->addHour(6)->isoFormat('Y-MM-DD HH:mm:ss');
 
@@ -31,47 +24,67 @@ class AttendanceController extends Controller
         return view('user.attendance', compact('date', 'created', 'result'));
     }
 
+    public function allAttendance()
+    {
+
+        $items = AttendanceTracker::all();
+
+        return view('admin.allattendance', compact('items'));
+    }
+
+
     public function checkIn()
     {
         $user_id = Auth::user()->id;
         // get current local date
-        // $date = Carbon::now()->isoFormat('DD-MM-Y');
-        $date = Carbon::now();
+        $date = Carbon::now()->isoFormat('DD-MM-Y');
+
         // get current local time
-        // $time =  Carbon::now()->addHour(6)->isoFormat('HH:mm A');
-        $time = Carbon::now();
+        $time =  Carbon::now()->addHour(6)->isoFormat('HH:mm A');
+
         // database posting
         AttendanceTracker::insert([
             'user_id' => $user_id,
             'date' => $date,
-            'check_in' => Carbon::now(),
+            'check_in' => $time,
             'created_at' => Carbon::now(),
         ]);
+        
+        $updateUser = User::find(Auth::user()->id)->update([
+            // after check out done!
+            'is_owner' => -1,
+        ]);
+        
         return redirect()->route('home');
     }
 
     public function checkOut()
     {
-        $user_id = Auth::user()->id;
+        
+        $user_update = Auth::user()->updated_at;
+        $tracker_id = Auth::user()->tracker_finder->id;
         $date = Carbon::now()->isoFormat('DD-MM-Y');
+        // get current local time
+        $time =  Carbon::now()->addHour(6)->isoFormat('HH:mm A');        
 
         // office hour calculation
-        // $actual_start_at = Carbon::parse('2017-05-01 13:00:00');
-        // $actual_end_at = Carbon::now()->addHour(6)->isoFormat('Y-MM-DD HH:mm:ss');
-        // $result = $actual_end_at->diffInSeconds($actual_start_at, true);
-        // $result = CarbonInterval::seconds($result)->cascade();
 
-        $timeNow = Carbon::now();
-
-        $actual_start_at = AttendanceTracker::where('user_id', $user_id)->first()->check_in;
-        $actual_end_at = $timeNow;
+        $actual_start_at = $user_update;
+        $actual_end_at = Carbon::now();
         $result = $actual_end_at->diffInSeconds($actual_start_at, true);
         $result = CarbonInterval::seconds($result)->cascade();
 
-        $update = AttendanceTracker::where('user_id', $user_id)->first()->update([
-            'check_out' => $timeNow,
+
+        $update = AttendanceTracker::find($tracker_id)->update([
+            'check_out' => $time,
             'spent_hours' => $result,
         ]);
+
+        $updateUser = User::find(Auth::user()->id)->update([
+            // after check out done!
+            'is_owner' => null,
+        ]);
+
 
         return redirect()->route('home');
     }

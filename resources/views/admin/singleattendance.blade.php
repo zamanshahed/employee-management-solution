@@ -54,7 +54,7 @@
                             <table class="table">
                                 <thead>
                                     <tr>
-                                        <th scope="col">SL No.</th>
+                                        
                                         <th scope="col">Date</th>
                                         <th scope="col">Check in</th>
                                         <th scope="col">Check Out</th>
@@ -65,7 +65,7 @@
                                     @php($i = 1)
                                     @foreach ($user_data as $item)
                                         <tr>
-                                            <th scope="row">{{ $i++ }}</th>
+                                            
                                             <td>{{ $item->date }}</td>
                                             <td>{{ $item->check_in }}</td>
                                             <td>

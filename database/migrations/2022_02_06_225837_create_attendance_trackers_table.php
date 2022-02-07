@@ -19,7 +19,7 @@ class CreateAttendanceTrackersTable extends Migration
             $table->date('date')->nullable();
             $table->dateTime('check_in')->nullable();
             $table->dateTime('check_out')->nullable();
-            $table->integer('spent_hours')->nullable();
+            $table->string('spent_hours')->nullable();
             $table->timestamps();
         });
     }

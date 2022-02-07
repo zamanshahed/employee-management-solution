@@ -14,10 +14,38 @@
                             </div>
                         @endif
                         {{ $date }}
-                        <a href="{{route('employee.attendace')}}">
-                            {{ __('Check in / out!') }}
-                        </a>
+
+                        <form action="{{ route('employee.check.in') }}" method="POST">
+                            @csrf
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-success">
+                                        {{ __('Check In') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
                         
+                        <br>
+                        <form action="{{ route('employee.check.out') }}" method="POST">
+                            @csrf
+                            <div class="row mb-0">
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="submit" class="btn btn-primary">
+                                        {{ __('Check Out') }}
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                        <br>
+                        __status:
+                        {{ $created }}
+
+                        <br>
+                        __result:
+                        {{ $result }}
+
                     </div>
                 </div>
             </div>
